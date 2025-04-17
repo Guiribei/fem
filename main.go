@@ -7,13 +7,14 @@ import (
 )
 
 func handleRoot(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Hellow from Go program"))
+	w.Write([]byte("Hellow from Go program!"))
 }
 
 func main() {
-	http.HandleFunc("/", handleRoot)
+	server := http.NewServeMux()
+	server.HandleFunc("/", handleRoot)
 
-	err := http.ListenAndServe(":8000", nil)
+	err := http.ListenAndServe(":8000", server)
 	if err == nil{
 		fmt.Println("Error while opening the server")
 		os.Exit(1)
